@@ -175,6 +175,18 @@ class MusicBrainzClient(object):
         self.b.submit()
         return self._extract_mbid("artist")
 
+    def add_area(self, area, edit_note, auto=False):
+        self.b.open(self.url("/area/create"))
+        self._select_form("/area/create")
+
+        self.b["edit-area.name"] = area["name"]
+        # A Sequence (list) is required for a drop down list
+        self.b["edit-area.type_id"] = [area["type"]]
+
+        self.b["edit-area.edit_note"] = edit_note.encode("utf8")
+        self.b.submit()
+        return self._extract_mbid("area")
+
     def _as_auto_editor(self, prefix, auto):
         try:
             self.b[prefix + "make_votable"] = [] if auto else ["1"]

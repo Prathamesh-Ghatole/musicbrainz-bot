@@ -7,3 +7,4 @@ config.py
 /acc-cache
 /caa-cache
 *.db
+__pycache__
